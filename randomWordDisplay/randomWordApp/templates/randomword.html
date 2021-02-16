@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Hello World!</h1>
+    <p>{{topmovs}}</p>
+    <p>{{favcolor}}</p>
+
+    <h5>Here is your random lucky number: {{random}}</h5>
+
+    <table>
+        <tr>
+          <th>Title</th>
+          <th>Rating</th>
+          <th>Release Date</th>
+        </tr>
+        {% for something in topmovs %}
+        <tr>
+          <td>{{something.title}}</td>
+          <td>
+              {% if something.rating == 5 %}
+              This is a fire movie
+              {% elif something.rating >= 3 %}
+              This movie is aiiiiight
+              {% else %}
+              Don't waste your time, this movie has a rating of {{something.rating}} 
+              {% endif %}
+            </td>
+          <td>{{something.release_date}}</td>
+        </tr>
+        {% endfor %}
+        
+      </table>
+
+    
+
+</body>
+</html>
