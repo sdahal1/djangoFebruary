@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Welcome to Bootleg Freerange Grass Fed non-fluorided- illuminati free- nongMo NetFlix </h1>
+
+    <h3>Please register for a plan</h3>
+    <form action="/register" method="post">
+            {% csrf_token %}
+        <p>First Name: <input type="text" name="fname" id=""></p>
+        <p>Last Name: <input type="text" name="lname" id=""></p>
+        <p>Email: <input type="text" name="email" id=""></p>
+        <p>Credit Card Number: <input type="text" name="ccn" id=""></p>
+        <p>Please select your plan: <select name="plan" id="">
+            <option value="12.99">Basic Plan - $12.99</option>
+            <option value="16.99">Premium Plan - $16.99</option>
+            <option value="20.99">Throw my potential away  - $20.99</option>
+        </select></p>
+        <input type="submit" value="Sign Up for Bootleg Netflix">
+    </form>
+</body>
+</html>
