@@ -20,7 +20,6 @@ def registerUser(request):
     return redirect("/orderdetails")
 
 def details(request):
-
     return render(request, "orderdetails.html")
 
 
