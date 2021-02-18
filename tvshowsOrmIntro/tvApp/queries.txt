@@ -1,0 +1,43 @@
+#create 3 tv shows
+
+TvShow.objects.create(title="Breaking Bad", description="DARE to not do drugs", release_date= "2012-01-25", rating = 8)
+
+TvShow.objects.create(title="South Park", description="Cartoon with lots of explicit humor", release_date= "1998-02-20", rating = 10)
+
+thirdshow = TvShow.objects.create(title="Curb Your Enthusiasm", description="Larry David being the GOAT of comedy", release_date= "2001-08-19", rating = 10)
+
+
+
+RETRIEVE ALL TVSHOWS
+ClassName.objects.all() - gets all the records in the table
+
+TvShow.objects.all()
+
+
+ClassName.objects.first() - gets the first record in the table
+TvShow.objects.first()
+
+ClassName.objects.last() - gets the last record in the table
+TvShow.objects.last()
+
+
+ClassName.objects.get(id=1)
+TvShow.objects.get(id=2)
+
+
+
+Updating an existing record
+c = ClassName.objects.get(id=1)
+c.field_name = "some new value for field_name"
+c.save()
+
+
+showtoupdate = TvShow.objects.get(id=2)
+showtoupdate.rating = 9
+showtoupdate.save()
+
+
+Deleting an existing record
+c = TvShow.objects.get(id=2)
+c.delete()
+

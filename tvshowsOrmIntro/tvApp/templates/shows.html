@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+        </style>
+</head>
+<body>
+    <h1>Here are all of our available Tv Shows</h1>
+    {{allshows}}
+
+
+    <table>
+        <tr>
+          <th>Id</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Released On</th>
+          <th>Rating</th>
+
+        </tr>
+        {% for show in allshows %}
+        <tr>
+          <td>{{show.id}}</td>
+          <td>{{show.title}}</td>
+          <td>{{show.description}}</td>
+          <td>{{show.release_date}}</td>
+          <td>{{show.rating}}</td>
+
+        </tr>
+        {% endfor %}
+        
+      </table>
+</body>
+</html>
