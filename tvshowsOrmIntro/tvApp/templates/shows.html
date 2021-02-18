@@ -25,7 +25,6 @@
 </head>
 <body>
     <h1>Here are all of our available Tv Shows</h1>
-    {{allshows}}
 
 
     <table>
@@ -49,5 +48,16 @@
         {% endfor %}
         
       </table>
+
+      <h3>Submit your favorite tv show below</h3>
+      <form action="/submitShow" method="post">
+        {% csrf_token %}
+        <p>Title: <input type="text" name="title" id=""></p>
+        <p>Description:</p>
+        <p><textarea name="desc" id="" cols="30" rows="10"></textarea></p>
+        <p>Release Date: <input type="date" name="rd" id=""></p>
+        <p>Rating: <input type="number" name="rating" id="" min="1" max="10"></p>
+        <p><input type="submit" value="Submit the Showw!"></p>
+      </form>
 </body>
 </html>

@@ -6,6 +6,7 @@ TvShow.objects.create(title="South Park", description="Cartoon with lots of expl
 
 thirdshow = TvShow.objects.create(title="Curb Your Enthusiasm", description="Larry David being the GOAT of comedy", release_date= "2001-08-19", rating = 10)
 
+TvShow.objects.create(title="Crocodile Hunter", description="Steve Irwin is a boss", release_date= "1990-08-19", rating = 10)
 
 
 RETRIEVE ALL TVSHOWS
