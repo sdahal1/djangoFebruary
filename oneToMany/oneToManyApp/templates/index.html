@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>All the Teams!</h1>
+
+    {% for teamobj in  allteams %}
+    <h3>{{teamobj.name}}</h3>
+    <ol>
+    {% for playerobj in teamobj.roster.all %}
+        <li>{{playerobj.firstname}} {{playerobj.lastname}}</li>
+    {% endfor %}
+    </ol>
+    
+    {% endfor %}
+
+    <h2>Add a new team</h2>
+    <form action="/createTeam" method="post">
+        {% csrf_token %}
+        <p>Team Name: <input type="text" name="teamname" id=""></p>
+        <p>Team Location: <input type="text" name="loc" id=""></p>
+        <p><input type="submit" value="Submit Team"></p>
+    </form>
+
+
+    <h2>Add a new player</h2>
+    <form action="/createPlayer" method="post">
+        {% csrf_token %}
+        <p>First Name: <input type="text" name="fname" id=""></p>
+        <p>Last Name: <input type="text" name="lname" id=""></p>
+        <p>Points Per Game: <input type="number" step="0.1" name="ppg"></p>
+        <p>Which team? <select name="team" id="">
+            {% for teamobj in allteams %}
+            <option value="{{teamobj.id}}">{{teamobj.name}}</option>
+            {% endfor %}
+        </select></p>
+        <p><input type="submit" value="Submit Team"></p>
+    </form>
+
+
+   
+</body>
+</html>
