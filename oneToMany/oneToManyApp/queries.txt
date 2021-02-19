@@ -1,0 +1,26 @@
+CREATE SOME TEAMS
+
+Team.objects.create(name = "Lakers", location="Los Angeles")
+Team.objects.create(name = "Warriors", location="Oakland")
+Team.objects.create(name = "Mavericks", location="Dallas")
+
+
+CREATE SOME PLAYERS
+Player.objects.create(firstname = "Lebron", lastname = "James", pointsPerGame= "25.8", assignedTeam= Team.objects.get(id=1))
+
+Player.objects.create(firstname = "Anthony", lastname = "Davis", pointsPerGame= "26.9", assignedTeam= Team.objects.get(id=1))
+
+Player.objects.create(firstname = "Luka", lastname = "Doncic", pointsPerGame= "28.0", assignedTeam= Team.objects.get(id=3))
+
+Player.objects.create(firstname = "Steph", lastname = "Curry", pointsPerGame= "32.0", assignedTeam= Team.objects.get(id=2))
+
+Player.objects.create(firstname = "Klay", lastname = "Thompson", pointsPerGame= "35.0", assignedTeam= Team.objects.get(id=2))
+
+#Gets the team name of the player object who has the id of 1
+Player.objects.get(id=1).assignedTeam.name
+
+#Gets all the players for the team whose id is 2
+Team.objects.get(id=2).roster.all()
+
+#Another way to Get all the players for the team whose id is 2
+Player.objects.filter(assignedTeam = Team.objects.get(id=2))

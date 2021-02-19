@@ -4,6 +4,7 @@ from django.db import models
 class TvShow(models.Model):
     #field names go here
     title = models.CharField(max_length = 255)
+    duration = models.IntegerField(null = True)
     description = models.TextField()
     release_date = models.DateField()
     rating = models.IntegerField(null=True)
