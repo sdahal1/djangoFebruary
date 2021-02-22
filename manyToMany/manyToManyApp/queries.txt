@@ -1,0 +1,55 @@
+User.objects.create(username = "Ian", birthday= "1999-01-01")
+User.objects.create(username = "esmith167", birthday= "2010-12-01")
+User.objects.create(username = "marcus", birthday= "1999-01-30")
+User.objects.create(username = "DiamondHandedApp23", birthday= "2000-08-19")
+
+
+
+Artist.objects.create(firstName = "John", lastName="Legend")
+Artist.objects.create(firstName = "Sean", lastName="Carter")
+Artist.objects.create(firstName = "Andrea", lastName="Bocelli")
+Artist.objects.create(firstName = "Chedder", lastName="Bob")
+Artist.objects.create(firstName = "Lauryn", lastName="Hit")
+Artist.objects.create(firstName = "Nickel", lastName="Back")
+
+
+
+
+this_user = User.objects.get(id=3)	# retrieve an instance of a book
+this_artist = Artist.objects.get(id=4)	# retrieve an instance of a publisher
+    
+# 2 options that do the same thing:
+this_user.likedArtists.add(this_artist)
+
+this_artist.fans.add(this_user)
+
+
+
+#user3 likes artist5 in one line of code
+
+User.objects.get(id=3).likedArtists.add(Artist.objects.get(id=5))
+
+
+#more examples
+User.objects.get(id=4).likedArtists.add(Artist.objects.get(id=5))
+User.objects.get(id=2).likedArtists.add(Artist.objects.get(id=5))
+
+User.objects.get(id=2).likedArtists.remove(Artist.objects.get(id=5))
+
+
+#removing a many to many relationship between user3 and artist 4
+User.objects.get(id=3).likedArtists.remove(Artist.objects.get(id=4))
+
+
+#to see all the artists that user 3 likes
+User.objects.get(id=3).likedArtists.all()
+
+
+#to see all the fans of artist #5
+Artist.objects.get(id=5).fans.all()
+
+
+Updating an existing record
+c = Artist.objects.get(id=5)
+c.lastName = "Hill"
+c.save()
