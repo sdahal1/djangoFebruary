@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+        </style>
+</head>
+<body>
+    <h1>Your top artists</h1>
+
+    <p>{{allArtists}}</p>
+
+    <table>
+        <tr>
+          <th>ID</th>
+          <th>Full Name</th>
+          <th>Description</th>
+        </tr>
+        {% for artist in allArtists %}
+        <tr>
+          <td>{{artist.id}}</td>
+          <td><a href="/showArtistInfo/{{artist.id}}">{{artist.firstName}} {{artist.lastName}}</a></td>
+          <td>{{artist.description}}</td>
+        </tr>
+        {% endfor %}
+        
+      </table>
+
+      <h3>Add artist below</h3>
+      <form action="/artist/create" method="post">
+          {% csrf_token %}
+          <p>First Name: <input type="text" name="fname" id=""></p>
+          <p>Last Name: <input type="text" name="lname" id=""></p>
+          <p>Description: <textarea name="desc" id="" cols="30" rows="10"></textarea></p>
+          <p><input type="submit" value="Add Artist"></p>
+
+      </form>
+
+</body>
+</html>

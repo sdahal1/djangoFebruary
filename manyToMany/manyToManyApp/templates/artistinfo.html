@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Info about {{oneArtist.firstName}} {{oneArtist.lastName}}</h1>
+    <p>Description: {{oneArtist.description}}</p>
+    <p>Fans of this Artist</p>
+    {{oneArtist.fans.all.count}} People Like this Artist
+    <ul>
+    {% for userObj in oneArtist.fans.all %}
+        <li>{{userObj.username}}</li>
+    {% endfor %}
+    </ul>
+
+    <form action="/addToFanBase/{{oneArtist.id}}" method="post">
+        {% csrf_token %}
+        <p>Select a Fan to add to this artists' fanbase</p>
+        <select name="selectedUser" id="">
+            {% for user in allUsers %}
+                {% if user not in oneArtist.fans.all %}
+                    <option value="{{user.id}}">{{user.username}}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <!-- <input type="hidden" name="artistId" id="" value = "{{oneArtist.id}}"> -->
+        <input type="submit" value="Add to fanbase!">
+    </form>
+</body>
+</html>
