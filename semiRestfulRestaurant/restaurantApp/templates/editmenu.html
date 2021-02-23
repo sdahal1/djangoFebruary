@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Edit Menu Item: {{oneItem.name}}</h1>
+    <form action="/menu/update/{{oneItem.id}}" method="post">
+        {% csrf_token %}
+        <p>Dish Name: <input type="text" name="dishname" id="" value = "{{oneItem.name}}"></p>
+        <p>Description: <textarea name="desc" id="" cols="30" rows="10">{{oneItem.description}}</textarea></p>
+        <p>Suggested Price: <input type="number" step="0.01" name= "priceInput" value ="{{oneItem.price}}" ></p>
+        <input type="submit" value="Update Suggestion">
+    </form>
+</body>
+</html>

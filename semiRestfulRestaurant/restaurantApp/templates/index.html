@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Welcome to Healthy Eats Restaurant. Please suggest some healthy meals for our restaurant that is opening soon</h1>
+    <form action="/menu/create" method="post">
+        {% csrf_token %}
+        <p>Dish Name: <input type="text" name="dishname" id=""></p>
+        <p>Description: <textarea name="desc" id="" cols="30" rows="10"></textarea></p>
+        <p>Suggested Price: <input type="number" step="0.01" name= "priceInput"></p>
+        <input type="submit" value="Enter Suggestion">
+    </form>
+</body>
+</html>
