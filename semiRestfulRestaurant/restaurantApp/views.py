@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from .models import *
 
 # Create your views here.
@@ -9,6 +10,17 @@ def createMenuItem(request):
     print("***********")
     print(request.POST)
     print("***********")
+
+    errorsFromValidator = Menu.objects.menuCreationValidator(request.POST)
+
+    print("PRINTING ERRORSFROMVALIDATOR HERE", errorsFromValidator)
+
+    if len(errorsFromValidator)>0:
+        for key, value in errorsFromValidator.items():
+            messages.error(request, value)
+        return redirect('/menu/new')
+        
+
     newitem = Menu.objects.create(name = request.POST['dishname'], description= request.POST['desc'], price = request.POST['priceInput'])
     print('PRINTING THE NEW ITEM HERE:', newitem)
 
@@ -42,6 +54,14 @@ def updateItem(request, menuId):
     print("***********")
     print(request.POST)
     print("***********")
+    errorsFromValidator = Menu.objects.menuCreationValidator(request.POST)
+
+    print("PRINTING ERRORSFROMVALIDATOR HERE", errorsFromValidator)
+
+    if len(errorsFromValidator)>0:
+        for key, value in errorsFromValidator.items():
+            messages.error(request, value)
+        return redirect(f'/menu/edit/{menuId}')
     # Updating an existing record
     c = Menu.objects.get(id=menuId)
     c.name = request.POST['dishname']
