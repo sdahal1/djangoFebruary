@@ -24,5 +24,15 @@
         <input type="submit" value="Register!">
     </form>
 
+    <h3>Login</h3>
+    <form action="/login" method="post">
+        {% csrf_token %}
+        <p>Email: <input type="text" name="email" id=""></p>
+        <p>Password: <input type="text" name="pw" id=""></p>
+        <input type="submit" value="Login!">
+    </form>
+
+
+
 </body>
 </html>
