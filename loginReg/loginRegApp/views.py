@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 import bcrypt
-from .models import User
+from .models import *
 
 # Create your views here.
 def index(request):
@@ -31,7 +31,8 @@ def newsFeed(request):
         return redirect("/")
 
     context = {
-        'loggedinUser': User.objects.get(id= request.session['loggedInUserId'])
+        'loggedinUser': User.objects.get(id= request.session['loggedInUserId']),
+        'allevents': Event.objects.all()
     }
 
     return render(request, "newsfeed.html", context)
@@ -52,4 +53,44 @@ def login(request):
     matchingemail = User.objects.filter(email = request.POST['email'] )
     request.session['loggedInUserId']= matchingemail[0].id
 
+    return redirect("/newsFeed")
+
+def createEvent(request):
+    print(request.POST)
+
+    errorsFromValidator = Event.objects.eventCreateValidator(request.POST)
+
+    print("ERRORS FROM VALIDATOR", errorsFromValidator)
+    if len(errorsFromValidator)>0:
+        for key, value in errorsFromValidator.items():
+            messages.error(request, value)
+        return redirect("/newsFeed")
+
+
+    Event.objects.create(name = request.POST['name'], description = request.POST['desc'], location = request.POST['location'], startTime = request.POST['start'],endTime = request.POST['end'], planner= User.objects.get(id=request.session['loggedInUserId']))
+    return redirect("/newsFeed")
+
+
+def showEvent(request, eventID):
+
+    context = {
+        "eventObj": Event.objects.get(id=eventID),
+        'loggedinuser': User.objects.get(id=request.session['loggedInUserId'])
+    }
+    return render(request, "eventInfo.html", context)
+
+def cancelEvent(request, eventID):
+    e = Event.objects.get(id=eventID)
+    e.delete()
+
+    return redirect("/newsFeed")
+
+def updateEvent(request, eventID):
+    e = Event.objects.get(id= eventID)
+    e.name = request.POST['name']
+    e.description = request.POST['desc']
+    e.location = request.POST['location']
+    e.startTime = request.POST['start']
+    e.endTime = request.POST['end']
+    e.save()
     return redirect("/newsFeed")

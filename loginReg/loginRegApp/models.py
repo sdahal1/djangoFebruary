@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import date
+from datetime import date, datetime
 import bcrypt
 import re
 
@@ -63,7 +63,31 @@ class UserManager(models.Manager):
 
 
         return errors
+
+
+class EventManager(models.Manager):
+    def eventCreateValidator(self, formInfo):
+        errors= {}
+        now = datetime.now()
+        if len(formInfo['name']) == 0:
+            errors['nameReq'] = "Event Name Required"
+        if len(formInfo['desc']) <10 :
+            errors['descLength'] = "We need more details than that to create that event!"
+        if len(formInfo['location']) == 0:
+            errors['locationReq'] = "Event Location Required"
+        if len(formInfo['start']) == 0:
+            errors['startReq'] = "Start Time Required"
+        elif formInfo['start'] < str(now):
+            errors['noPastEvents']= "Event cannot be in the past"
+        if len(formInfo['end']) == 0:
+            errors['endReq'] = "End Time Required"
+        elif formInfo['end'] < formInfo['start']:
+            errors['invalidchoices'] = "Start time must be before end time"
+
+        return errors
+
 # Create your models here.
+
 class User(models.Model):
     firstName = models.CharField(max_length = 255)
     lastName = models.CharField(max_length = 255)
@@ -78,12 +102,12 @@ class User(models.Model):
 class Event(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
-    location = models.CharField()
+    location = models.CharField(max_length=255)
     startTime = models.DateTimeField()
     endTime = models.DateTimeField()
     planner = models.ForeignKey(User, related_name="plannedEvents", on_delete= models.CASCADE)
     attendees = models.ManyToManyField(User, related_name= "eventsToAttend")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
+    objects = EventManager()
 
