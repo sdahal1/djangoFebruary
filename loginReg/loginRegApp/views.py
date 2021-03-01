@@ -67,7 +67,8 @@ def createEvent(request):
         return redirect("/newsFeed")
 
 
-    Event.objects.create(name = request.POST['name'], description = request.POST['desc'], location = request.POST['location'], startTime = request.POST['start'],endTime = request.POST['end'], planner= User.objects.get(id=request.session['loggedInUserId']))
+    newevent = Event.objects.create(name = request.POST['name'], description = request.POST['desc'], location = request.POST['location'], startTime = request.POST['start'],endTime = request.POST['end'], planner= User.objects.get(id=request.session['loggedInUserId']))
+    User.objects.get(id=request.session['loggedInUserId']).eventsToAttend.add(newevent)
     return redirect("/newsFeed")
 
 
@@ -94,3 +95,9 @@ def updateEvent(request, eventID):
     e.endTime = request.POST['end']
     e.save()
     return redirect("/newsFeed")
+
+def userDetails(request, userid):
+    context = {
+        'specificuser': User.objects.get(id= userid)
+    }
+    return render(request, "userdetails.html", context)
